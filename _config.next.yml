@@ -513,6 +513,7 @@ math:
 
   mathjax:
     enable: true
+    cdn: //cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML
     # Available values: none | ams | all
     tags: none
 
