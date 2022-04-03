@@ -8,13 +8,19 @@
       <link href="/2022/04/03/Paper-Reading-NeRF-Nerual-Radience-Field/"/>
       <url>/2022/04/03/Paper-Reading-NeRF-Nerual-Radience-Field/</url>
       
-        <content type="html"><![CDATA[<h2 id="basic-idea">Basic Idea</h2>]]></content>
+        <content type="html"><![CDATA[<h2 id="basic-idea">Basic Idea</h2><p>Test formula <span class="math display">\[\int_a^b c = cx + t\]</span></p>]]></content>
       
+      
+      <categories>
+          
+          <category> Paper Reading </category>
+          
+      </categories>
       
       
         <tags>
             
-            <tag> Paper Reading </tag>
+            <tag> 3D Representation implicitly </tag>
             
         </tags>
       
