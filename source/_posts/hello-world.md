@@ -22,7 +22,12 @@ $ hexo server
 More info: [Server](https://hexo.io/docs/server.html)
 
 ### Generate static files
+$$
 
+ax + b = c\\
+\infity
+
+$$
 ``` bash
 $ hexo generate
 ```
