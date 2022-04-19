@@ -5,6 +5,10 @@ date: 2022-04-19 11:38:39
 tags:
 ---
 
+This post mainly records the reproducing detail and helps me 
+reproduce VolSDF more efficiently.
+
+<!-- more -->
 ## Volume Rendering
 
 ### Signed Distence Function
@@ -113,6 +117,7 @@ $$
 You will find they are very similar.
 
 ------------------------------------
+
 ## Network Architecture
 
 There're two networks and one is geometry network $\boldsymbol{f}_\varphi$ with 8-layer, 256-width MLP and a single skip connection from the input to the 4th layer. 
@@ -159,9 +164,9 @@ $\mathcal{L}_{\mathrm{SDF}}$ is the Eikonal loss, and the samples $\boldsymbol z
 are taken to combine a single random uniform space point and a single point 
 from $S$ for each pixel $p$. $\lambda$ is a hyper-parameter and set 0.1 in experiments.
 
-Notice that, this loss mainly serve the training the geometry network and not for rendering. So we don't compute the gradient of the function in [Signed Distence Function](#Signed-Distence-Function), $d$ not $d_\Omega$
+Notice that, this loss mainly serve the training the geometry network and not for rendering. So we don't compute the gradient of the function in [Signed Distence Function](#signed-distence-function) , $d$ not $d_\Omega$
+
+
 
 --------------------------------------------
 ## Sampling Algorithm
-
-![pic](./sigma_approx.png)
