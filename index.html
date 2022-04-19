@@ -213,7 +213,7 @@
       <span class="post-meta-item-text">Posted on</span>
       
 
-      <time title="Created: 2022-04-19 11:38:39 / Modified: 08:46:37" itemprop="dateCreated datePublished" datetime="2022-04-19T11:38:39+00:00">2022-04-19</time>
+      <time title="Created: 2022-04-19 11:38:39 / Modified: 08:51:05" itemprop="dateCreated datePublished" datetime="2022-04-19T11:38:39+00:00">2022-04-19</time>
     </span>
 
   
@@ -301,10 +301,9 @@ sigma_approx_f5d5850c.png" width="60%"> <br>
 <div style="color:orange;solid #d9d9d9;
     display: inline-block;
     color: #999;
-    padding: 2px;">
+    padding: 1px;">
 <b>Blue line for δσ, red line for 1 - p</b>
 </div>
-<pre><code>&lt;br&gt;</code></pre>
 </center>
 <p>So the <span class="math inline">\(\tau\)</span> can be written as following: <span class="math display">\[
 \hat{\tau}_{i}=\left(1-p_{i}\right) \prod_{j=1}^{i-1} p_{j} \quad \text { for } 1 \leq i \leq m-1, \quad \text { and } \hat{\tau}_{m}=\prod_{j=1}^{m-1} p_{j}
@@ -325,25 +324,25 @@ There're two networks and one is geometry network <span class="math inline">\(\b
 <div style="color:orange;solid #d9d9d9;
     display: inline-block;
     color: #999;
-    padding: 2px;">
+    padding: 1px;">
 <b>The architecture of geometry network</b>
 </div>
-<pre><code>&lt;br&gt;</code></pre>
 </center>
 <center>
 <img src="https://blog-image-zxy.oss-cn-hangzhou.aliyuncs.com/2022-04-19-15-39-53_421d799f.png"/><br>
 <div style="color:orange;solid #d9d9d9;
     display: inline-block;
     color: #999;
-    padding: 2px;">
+    padding: 1px;">
 <b>The architecture of radience field network</b>
 </div>
-<pre><code>&lt;br&gt;</code></pre>
 </center>
 <ul>
 <li><p>VolSDF also uses positional encoding, but one thing we should pay attention is the geometry network only encodes the position <span class="math inline">\(\boldsymbol{x}\)</span> and radiance field network only encodes view direction <span class="math inline">\(\boldsymbol{v}\)</span>. Although the radiance field network also takes in position <span class="math inline">\(\boldsymbol{x}\)</span>, it doesn't encode it.</p></li>
-<li><p>The geometry network uses softplus as activation function while the radiance field network uses ReLU as activation function. ------------------ ## Loss Function</p></li>
+<li><p>The geometry network uses softplus as activation function while the radiance field network uses ReLU as activation function.</p></li>
 </ul>
+<hr />
+<h2 id="loss-function">Loss Function</h2>
 <p>Like NeRF, VolSDF uses two network, one for density, and one for color. We can define the loss as the distence between rendered color and expected color. But this loss is strongly related to the radiance field, and we need add another loss term to train the geometry network. And we notice that the L2 distence (<span class="math inline">\(d_\Omega(\boldsymbol{x})\)</span>) has a gradient of length 1. So the loss for the geometry network is <span class="math inline">\(\mathbb{E}(||\nabla_x d|| - 1)\)</span></p>
 <p>The loss function of VolSDF is:</p>
 <p><span class="math display">\[\mathcal{L}(\theta)=\mathcal{L}_{\mathrm{RGB}}(\theta)+\lambda \mathcal{L}_{\mathrm{SDF}}(\varphi), \quad\text{where}\]</span> <span class="math display">\[
@@ -353,6 +352,9 @@ There're two networks and one is geometry network <span class="math inline">\(\b
 <p>Notice that, this loss mainly serve the training the geometry network and not for rendering. So we don't compute the gradient of the function in <a href="#Signed-Distence-Function">Signed Distence Function</a>, <span class="math inline">\(d\)</span> not <span class="math inline">\(d_\Omega\)</span></p>
 <hr />
 <h2 id="sampling-algorithm">Sampling Algorithm</h2>
+<figure>
+<img src="./sigma_approx.png" alt="pic" /><figcaption>pic</figcaption>
+</figure>
 <link rel="stylesheet" href="/css/spoiler.css" type="text/css"><script src="/js/spoiler.js" type="text/javascript" async></script>
       
     </div>
@@ -415,7 +417,7 @@ There're two networks and one is geometry network <span class="math inline">\(\b
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">Edited on</span>
-      <time title="Modified: 2022-04-19 08:46:37" itemprop="dateModified" datetime="2022-04-19T08:46:37+00:00">2022-04-19</time>
+      <time title="Modified: 2022-04-19 08:51:05" itemprop="dateModified" datetime="2022-04-19T08:51:05+00:00">2022-04-19</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
