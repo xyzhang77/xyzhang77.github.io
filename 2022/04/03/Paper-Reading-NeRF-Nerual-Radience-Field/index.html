@@ -21,18 +21,21 @@
 
 <script class="next-config" data-name="main" type="application/json">{"hostname":"amb1t10n.github.io","root":"/","images":"/images","scheme":"Gemini","darkmode":true,"version":"8.11.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"width":240},"copycode":false,"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"Searching...","empty":"We didn't find any results for the search: ${query}","hits_time":"${hits} results found in ${time} ms","hits":"${hits} results found"}}</script><script src="/js/config.js"></script>
 
-    <meta name="description" content="Basic Idea Test formula \[\int_a^b c &#x3D; cx + t\]">
+    <meta name="description" content="NeRF  Introduction NeRF is to solve the problem of view sythesis by directly optimizing parameters of a continuous 5D function, and it uses neural network to represent scenes and store the informatio">
 <meta property="og:type" content="blog">
 <meta property="og:title" content="Paper Reading: NeRF(Nerual Radience Field)">
 <meta property="og:url" content="http://amb1t10n.github.io/2022/04/03/Paper-Reading-NeRF-Nerual-Radience-Field/index.html">
 <meta property="og:site_name" content="Xiyu Zhang&#39;s Blog">
-<meta property="og:description" content="Basic Idea Test formula \[\int_a^b c &#x3D; cx + t\]">
+<meta property="og:description" content="NeRF  Introduction NeRF is to solve the problem of view sythesis by directly optimizing parameters of a continuous 5D function, and it uses neural network to represent scenes and store the informatio">
 <meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://blog-image-zxy.oss-cn-hangzhou.aliyuncs.com/2022-04-18-23-42-32_3eea9ec2.png">
+<meta property="og:image" content="https://blog-image-zxy.oss-cn-hangzhou.aliyuncs.com/T_3d1944d4.png">
 <meta property="article:published_time" content="2022-04-03T13:03:15.000Z">
-<meta property="article:modified_time" content="2022-04-03T05:09:59.162Z">
+<meta property="article:modified_time" content="2022-04-19T02:51:21.540Z">
 <meta property="article:author" content="Xiyu Zhang">
 <meta property="article:tag" content="3D Representation implicitly">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://blog-image-zxy.oss-cn-hangzhou.aliyuncs.com/2022-04-18-23-42-32_3eea9ec2.png">
 
 
 <link rel="canonical" href="http://amb1t10n.github.io/2022/04/03/Paper-Reading-NeRF-Nerual-Radience-Field/">
@@ -117,7 +120,7 @@
       <div class="sidebar-panel-container">
         <!--noindex-->
         <div class="post-toc-wrap sidebar-panel">
-            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#basic-idea"><span class="nav-number">1.</span> <span class="nav-text">Basic Idea</span></a></li></ol></div>
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#introduction"><span class="nav-number">1.</span> <span class="nav-text">Introduction</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#neural-radiance-field-scene-representation"><span class="nav-number">2.</span> <span class="nav-text">Neural Radiance Field Scene Representation</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#volume-rendering"><span class="nav-number">3.</span> <span class="nav-text">Volume Rendering</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#two-tricks-in-nerf"><span class="nav-number">4.</span> <span class="nav-text">Two Tricks in NeRF</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#positional-encoding"><span class="nav-number">4.1.</span> <span class="nav-text">Positional Encoding</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#loss-function"><span class="nav-number">5.</span> <span class="nav-text">Loss Function</span></a></li></ol></div>
         </div>
         <!--/noindex-->
 
@@ -150,7 +153,7 @@
 </div>
   <div class="links-of-author site-overview-item animated">
       <span class="links-of-author-item">
-        <a href="https://github.com/amb1t10n" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;amb1t10n" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+        <a href="https://github.com/X1yu-Zhang" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;X1yu-Zhang" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
       </span>
       <span class="links-of-author-item">
         <a href="mailto:z724985625@gmail.com" title="E-Mail → mailto:z724985625@gmail.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
@@ -218,9 +221,15 @@
         <i class="far fa-calendar"></i>
       </span>
       <span class="post-meta-item-text">Posted on</span>
-      
 
-      <time title="Created: 2022-04-03 13:03:15 / Modified: 05:09:59" itemprop="dateCreated datePublished" datetime="2022-04-03T13:03:15+00:00">2022-04-03</time>
+      <time title="Created: 2022-04-03 13:03:15" itemprop="dateCreated datePublished" datetime="2022-04-03T13:03:15+00:00">2022-04-03</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">Edited on</span>
+      <time title="Modified: 2022-04-19 02:51:21" itemprop="dateModified" datetime="2022-04-19T02:51:21+00:00">2022-04-19</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -239,14 +248,14 @@
         <i class="far fa-file-word"></i>
       </span>
       <span class="post-meta-item-text">Symbols count in article: </span>
-      <span>38</span>
+      <span>3.9k</span>
     </span>
     <span class="post-meta-item" title="Reading time">
       <span class="post-meta-item-icon">
         <i class="far fa-clock"></i>
       </span>
       <span class="post-meta-item-text">Reading time &asymp;</span>
-      <span>1 mins.</span>
+      <span>4 mins.</span>
     </span>
 </div>
 
@@ -257,9 +266,54 @@
     
     
     <div class="post-body" itemprop="articleBody">
-        <h2 id="basic-idea">Basic Idea</h2>
-<p>Test formula <span class="math display">\[\int_a^b c = cx + t\]</span></p>
-
+        <figure>
+<img src="https://blog-image-zxy.oss-cn-hangzhou.aliyuncs.com/2022-04-18-23-42-32_3eea9ec2.png" alt="NeRF" /><figcaption>NeRF</figcaption>
+</figure>
+<h2 id="introduction">Introduction</h2>
+<p>NeRF is to solve the problem of view sythesis by directly optimizing parameters of a continuous 5D function, and it uses neural network to represent scenes and store the information of a real model. The neural network has a 5D input, the spatial location <span class="math inline">\((x, y, z)\)</span> and viewing direction <span class="math inline">\((\theta, \phi)\)</span>, and outputs the volume density and the view-dependent emitted radiance at that spatial location. The volume density is only related with the spatial location, while radiance is also related with the viewing direction. It is because we can see different color from different view, like mirrors.</p>
+<span id="more"></span>
+<h2 id="neural-radiance-field-scene-representation">Neural Radiance Field Scene Representation</h2>
+<p>The output can be seen as a vector in a 3D point, and there's a vector field called neural radiance field.</p>
+<p>The input is 3D location <span class="math inline">\({\bf{x}}=(x,y,z)\)</span> and 2D view direction <span class="math inline">\((\theta, \phi)\)</span> which also can be represented as 3D Cartesian unit vector <span class="math inline">\({\bf{d}}\)</span>. The structure of the network is extremely simple and is an 8-layer MLP with a skip connection at 4th layer using ReLU activations and 256 channels per layer. The output is <span class="math inline">\(\sigma\)</span> which is the density, and the 256-dimension feature. Then the feature vector is concatenated with view direction, and then fed into another MLP which outputs the view-dependent RGB color.</p>
+<h2 id="volume-rendering">Volume Rendering</h2>
+<p>What we want to do is synthesize novol view only by camera intrinsics and extrinsics. But the input is not the parameters.</p>
+<p>Actually, the color of each pixel can be seen as how much radiance arrive at the image plane along the ray that emits from the camera and goes through the specific pixel.</p>
+<p>So we can formulate the color of camera as</p>
+<p><span class="math display">\[
+C({\bf{r}}) = \int_{t_n}^{t_f}  T(t)\sigma({\bf r}(t)){\bf c}({\bf r}(t),{\bf d}) \mathrm{d}t, \text{where}\ T(t) = \exp(-\int_{t_n}^t\sigma({\bf r}(s))\  \mathrm{d}s)
+\]</span></p>
+<p>The function <span class="math inline">\(T(t)\)</span> denotes the accumulated transmittance along the ray from <span class="math inline">\(t_n\)</span> to <span class="math inline">\(t\)</span>, the probility taht the ray travels from <span class="math inline">\(t_n\)</span> to <span class="math inline">\(t\)</span> without hitting any other particle. If there's <span class="math inline">\(t\)</span> such that <span class="math inline">\(\sigma\)</span> is large, <span class="math inline">\(T\)</span> will drop drastically, which is as following.</p>
+<figure>
+<img src="https://blog-image-zxy.oss-cn-hangzhou.aliyuncs.com/T_3d1944d4.png" alt="The red line is T, the blue is sigma" /><figcaption>The red line is T, the blue is sigma</figcaption>
+</figure>
+<p>We need to estimate the above fucntion using a numerical method. And we sample the rays discretize the integral, and use left Riemann sum. So the integral can be represented as</p>
+<p><span class="math display">\[
+\hat{C}({\bf{r}}) = \sum_{i=1}^N T_i(1-exp(-\sigma_i\delta_i)){\bf c}_i,\ \text{where}\ T_i = \exp(-\sum_{j=1}^{i-1} \sigma_j\delta_j)
+\]</span></p>
+<h2 id="two-tricks-in-nerf">Two Tricks in NeRF</h2>
+<h3 id="positional-encoding">Positional Encoding</h3>
+<p>The input is a 5D coordiante, and it is too diffical to use this 5D data direcly estimate the geometry information especially the high-frequency information. They use positional encoding to map the original data to a higher dimension to enable better fitting of data that contains high frequency variation</p>
+<p><span class="math display">\[
+\gamma(p) = (sin(2^0\pi p), cos(2^0\pi p), \cdots, sin(2^{L-1}\pi p), cos(2^{L-1}\pi p))
+\]</span></p>
+<p><span class="math display">\[
+F_{\Theta} = F_{\Theta}&#39;\circ\gamma
+\]</span></p>
+<p>We also see positional encoding in Transformer, a model for NLP. Although they have the same name and function, they serve different purposes. In Transformer, it is to add positional information, because attention doesn't take position into consider, and here, it is to map the data into higher dimension to easily approximate a higher frequency function. ### Hierarchical Sampling</p>
+<p>In volume rendering, we approximate the integral by sampling points along the ray. The more sample points, the more precise it is. But it will also lead to higher overhead. So the samping strategy is important.</p>
+<p>Hierarchical sampling is a sampling strategy from coarse to fine. Uniformly sampling will treat each interval equally, however, we need sample more points in the interval that the volume is occupied by the object.</p>
+<p>They use two network, "coarse" and "fine". First, we use uniform sampling and feed in coarse network, <span class="math display">\[
+\hat{C_c}({\bf r}) = \sum_{i=1}^{N_c}w_ic_i,\ w_i=T_i(1-\exp(-\sigma_i \delta_i))
+\]</span></p>
+<p>then normalize the weight. After that, use inverse sample to get another sample sets.</p>
+<h2 id="loss-function">Loss Function</h2>
+<p>The input is 5D coordinate and output is color, and actually we have already know the color of the integral. So the loss is the distence between estimated color and expected color.</p>
+<p>Due to the architecture of dual network, we have to add the color from the coarse network to train easiler.</p>
+<p>So the loss function is</p>
+<p><span class="math display">\[
+\mathcal{L}=\sum_{\mathbf{r} \in \mathcal{R}}\left[\left\|\hat{C}_{c}(\mathbf{r})-C(\mathbf{r})\right\|_{2}^{2}+\left\|\hat{C}_{f}(\mathbf{r})-C(\mathbf{r})\right\|_{2}^{2}\right]
+\]</span></p>
+<link rel="stylesheet" href="/css/spoiler.css" type="text/css"><script src="/js/spoiler.js" type="text/javascript" async></script>
     </div>
 
     
@@ -302,13 +356,13 @@
     <span class="post-meta-item-icon">
       <i class="fa fa-chart-line"></i>
     </span>
-    <span title="Symbols count total">0k</span>
+    <span title="Symbols count total">4k</span>
   </span>
   <span class="post-meta-item">
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-    <span title="Reading time total">1 mins.</span>
+    <span title="Reading time total">4 mins.</span>
   </span>
 </div>
   <div class="powered-by">Powered by <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/" rel="noopener" target="_blank">NexT.Gemini</a>
@@ -337,7 +391,7 @@
 
   
 
-  <script class="next-config" data-name="enableMath" type="application/json">false</script><script class="next-config" data-name="mathjax" type="application/json">{"enable":true,"tags":"none","cdn":"//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML","js":{"url":"https://cdn.jsdelivr.net/npm/mathjax@3.2.0/es5/tex-mml-chtml.js","integrity":"sha256-r+3itOMtGGjap0x+10hu6jW/gZCzxHsoKrOd7gyRSGY="}}</script>
+  <script class="next-config" data-name="enableMath" type="application/json">true</script><script class="next-config" data-name="mathjax" type="application/json">{"enable":true,"tags":"none","js":{"url":"https://cdn.jsdelivr.net/npm/mathjax@3.2.0/es5/tex-mml-chtml.js","integrity":"sha256-r+3itOMtGGjap0x+10hu6jW/gZCzxHsoKrOd7gyRSGY="}}</script>
 <script src="/js/third-party/math/mathjax.js"></script>
 
 
