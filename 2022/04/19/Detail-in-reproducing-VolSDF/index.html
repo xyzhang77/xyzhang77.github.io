@@ -21,20 +21,19 @@
 
 <script class="next-config" data-name="main" type="application/json">{"hostname":"amb1t10n.github.io","root":"/","images":"/images","scheme":"Gemini","darkmode":true,"version":"8.11.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"width":240},"copycode":false,"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"Searching...","empty":"We didn't find any results for the search: ${query}","hits_time":"${hits} results found in ${time} ms","hits":"${hits} results found"}}</script><script src="/js/config.js"></script>
 
-    <meta name="description" content="Volume Rendering Signed Distence Function \[ \mathbf{1}_{\Omega}(\boldsymbol{x})&#x3D;\left\{\begin{array}{ll} 1 &amp; \text { if } \boldsymbol{x} \in \Omega \\ 0 &amp; \text { if } \boldsymbol{x} \notin \">
+    <meta name="description" content="This post mainly records the reproducing detail and helps me reproduce VolSDF more efficiently.">
 <meta property="og:type" content="blog">
 <meta property="og:title" content="Detail in reproducing VolSDF">
 <meta property="og:url" content="http://amb1t10n.github.io/2022/04/19/Detail-in-reproducing-VolSDF/index.html">
 <meta property="og:site_name" content="Xiyu Zhang&#39;s Blog">
-<meta property="og:description" content="Volume Rendering Signed Distence Function \[ \mathbf{1}_{\Omega}(\boldsymbol{x})&#x3D;\left\{\begin{array}{ll} 1 &amp; \text { if } \boldsymbol{x} \in \Omega \\ 0 &amp; \text { if } \boldsymbol{x} \notin \">
+<meta property="og:description" content="This post mainly records the reproducing detail and helps me reproduce VolSDF more efficiently.">
 <meta property="og:locale" content="en_US">
 <meta property="og:image" content="https://blog-image-zxy.oss-cn-hangzhou.aliyuncs.com/
 sigma_approx_f5d5850c.png">
 <meta property="og:image" content="https://blog-image-zxy.oss-cn-hangzhou.aliyuncs.com/2022-04-19-15-30-57_02aeb7c2.png">
 <meta property="og:image" content="https://blog-image-zxy.oss-cn-hangzhou.aliyuncs.com/2022-04-19-15-39-53_421d799f.png">
-<meta property="og:image" content="http://amb1t10n.github.io/2022/04/19/Detail-in-reproducing-VolSDF/sigma_approx.png">
 <meta property="article:published_time" content="2022-04-19T11:38:39.000Z">
-<meta property="article:modified_time" content="2022-04-19T08:51:05.277Z">
+<meta property="article:modified_time" content="2022-04-19T09:12:25.238Z">
 <meta property="article:author" content="Xiyu Zhang">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="https://blog-image-zxy.oss-cn-hangzhou.aliyuncs.com/
@@ -226,7 +225,7 @@ sigma_approx_f5d5850c.png">
       <span class="post-meta-item-text">Posted on</span>
       
 
-      <time title="Created: 2022-04-19 11:38:39 / Modified: 08:51:05" itemprop="dateCreated datePublished" datetime="2022-04-19T11:38:39+00:00">2022-04-19</time>
+      <time title="Created: 2022-04-19 11:38:39 / Modified: 09:12:25" itemprop="dateCreated datePublished" datetime="2022-04-19T11:38:39+00:00">2022-04-19</time>
     </span>
 
   
@@ -236,7 +235,7 @@ sigma_approx_f5d5850c.png">
         <i class="far fa-file-word"></i>
       </span>
       <span class="post-meta-item-text">Symbols count in article: </span>
-      <span>5k</span>
+      <span>5.1k</span>
     </span>
     <span class="post-meta-item" title="Reading time">
       <span class="post-meta-item-icon">
@@ -254,7 +253,9 @@ sigma_approx_f5d5850c.png">
     
     
     <div class="post-body" itemprop="articleBody">
-        <h2 id="volume-rendering">Volume Rendering</h2>
+        <p>This post mainly records the reproducing detail and helps me reproduce VolSDF more efficiently.</p>
+<span id="more"></span>
+<h2 id="volume-rendering">Volume Rendering</h2>
 <h3 id="signed-distence-function">Signed Distence Function</h3>
 <p><span class="math display">\[
 \mathbf{1}_{\Omega}(\boldsymbol{x})=\left\{\begin{array}{ll}
@@ -362,12 +363,9 @@ There're two networks and one is geometry network <span class="math inline">\(\b
 \mathcal{L}_{\mathrm{RGB}}(\theta)=\mathbb{E}_{p}\left\|I_{p}-\hat{I}_{\mathcal{S}}\left(\boldsymbol{c}_{p}, \boldsymbol{v}_{p}\right)\right\|_{1}, \quad \text { and } \mathcal{L}_{\mathrm{SDF}}(\varphi)=\mathbb{E}_{\boldsymbol{z}}(\|\nabla d(\boldsymbol{z})\|-1)^{2} \text {, }
 \]</span></p>
 <p><span class="math inline">\(\mathcal{L}_{\mathrm{SDF}}\)</span> is the Eikonal loss, and the samples <span class="math inline">\(\boldsymbol z\)</span> are taken to combine a single random uniform space point and a single point from <span class="math inline">\(S\)</span> for each pixel <span class="math inline">\(p\)</span>. <span class="math inline">\(\lambda\)</span> is a hyper-parameter and set 0.1 in experiments.</p>
-<p>Notice that, this loss mainly serve the training the geometry network and not for rendering. So we don't compute the gradient of the function in <a href="#Signed-Distence-Function">Signed Distence Function</a>, <span class="math inline">\(d\)</span> not <span class="math inline">\(d_\Omega\)</span></p>
+<p>Notice that, this loss mainly serve the training the geometry network and not for rendering. So we don't compute the gradient of the function in <a href="#signed-distence-function">Signed Distence Function</a> , <span class="math inline">\(d\)</span> not <span class="math inline">\(d_\Omega\)</span></p>
 <hr />
 <h2 id="sampling-algorithm">Sampling Algorithm</h2>
-<figure>
-<img src="./sigma_approx.png" alt="pic" /><figcaption>pic</figcaption>
-</figure>
 <link rel="stylesheet" href="/css/spoiler.css" type="text/css"><script src="/js/spoiler.js" type="text/javascript" async></script>
     </div>
 
