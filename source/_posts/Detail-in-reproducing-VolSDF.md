@@ -91,8 +91,7 @@ sigma_approx_f5d5850c.png" width="60%">
 <div style="color:orange;solid #d9d9d9;
     display: inline-block;
     color: #999;
-    padding: 2px;"><b>Blue line for δσ, red line for 1 - p</b></div>
-    <br>
+    padding: 1px;"><b>Blue line for δσ, red line for 1 - p</b></div>
 </center>
 
 So the $\tau$ can be written as following:
@@ -122,16 +121,14 @@ There're two networks and one is geometry network $\boldsymbol{f}_\varphi$ with 
 <div style="color:orange;solid #d9d9d9;
     display: inline-block;
     color: #999;
-    padding: 2px;"><b>The architecture of geometry network</b></div>
-    <br>
+    padding: 1px;"><b>The architecture of geometry network</b></div>
 </center>
 <center>
 <img src="https://blog-image-zxy.oss-cn-hangzhou.aliyuncs.com/2022-04-19-15-39-53_421d799f.png"/><br>
 <div style="color:orange;solid #d9d9d9;
     display: inline-block;
     color: #999;
-    padding: 2px;"><b>The architecture of radience field network</b></div>
-    <br>
+    padding: 1px;"><b>The architecture of radience field network</b></div>
 </center>
 
 - VolSDF also uses positional encoding, but one thing we should pay attention is the geometry network only encodes the position $\boldsymbol{x}$ and radiance field network
@@ -139,7 +136,9 @@ only encodes view direction $\boldsymbol{v}$. Although the radiance field networ
 
 - The geometry network uses softplus as activation function while the radiance 
 field network uses ReLU as activation function.
-------------------
+
+-------------------------------
+
 ## Loss Function
 
 Like NeRF, VolSDF uses two network, one for density, and one for color. We can 
@@ -162,7 +161,7 @@ from $S$ for each pixel $p$. $\lambda$ is a hyper-parameter and set 0.1 in exper
 
 Notice that, this loss mainly serve the training the geometry network and not for rendering. So we don't compute the gradient of the function in [Signed Distence Function](#Signed-Distence-Function), $d$ not $d_\Omega$
 
--------------------------------
+--------------------------------------------
 ## Sampling Algorithm
 
-
+![pic](./sigma_approx.png)
