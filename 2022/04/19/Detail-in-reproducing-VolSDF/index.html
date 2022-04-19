@@ -21,23 +21,33 @@
 
 <script class="next-config" data-name="main" type="application/json">{"hostname":"amb1t10n.github.io","root":"/","images":"/images","scheme":"Gemini","darkmode":true,"version":"8.11.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"width":240},"copycode":false,"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"Searching...","empty":"We didn't find any results for the search: ${query}","hits_time":"${hits} results found in ${time} ms","hits":"${hits} results found"}}</script><script src="/js/config.js"></script>
 
-    <meta property="og:type" content="blog">
-<meta property="og:title" content="Xiyu Zhang&#39;s Blog">
-<meta property="og:url" content="http://amb1t10n.github.io/index.html">
+    <meta name="description" content="Volume Rendering Signed Distence Function \[ \mathbf{1}_{\Omega}(\boldsymbol{x})&#x3D;\left\{\begin{array}{ll} 1 &amp; \text { if } \boldsymbol{x} \in \Omega \\ 0 &amp; \text { if } \boldsymbol{x} \notin \">
+<meta property="og:type" content="blog">
+<meta property="og:title" content="Detail in reproducing VolSDF">
+<meta property="og:url" content="http://amb1t10n.github.io/2022/04/19/Detail-in-reproducing-VolSDF/index.html">
 <meta property="og:site_name" content="Xiyu Zhang&#39;s Blog">
+<meta property="og:description" content="Volume Rendering Signed Distence Function \[ \mathbf{1}_{\Omega}(\boldsymbol{x})&#x3D;\left\{\begin{array}{ll} 1 &amp; \text { if } \boldsymbol{x} \in \Omega \\ 0 &amp; \text { if } \boldsymbol{x} \notin \">
 <meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://blog-image-zxy.oss-cn-hangzhou.aliyuncs.com/
+sigma_approx_f5d5850c.png">
+<meta property="og:image" content="https://blog-image-zxy.oss-cn-hangzhou.aliyuncs.com/2022-04-19-15-30-57_02aeb7c2.png">
+<meta property="og:image" content="https://blog-image-zxy.oss-cn-hangzhou.aliyuncs.com/2022-04-19-15-39-53_421d799f.png">
+<meta property="article:published_time" content="2022-04-19T11:38:39.000Z">
+<meta property="article:modified_time" content="2022-04-19T08:46:37.576Z">
 <meta property="article:author" content="Xiyu Zhang">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://blog-image-zxy.oss-cn-hangzhou.aliyuncs.com/
+sigma_approx_f5d5850c.png">
 
 
-<link rel="canonical" href="http://amb1t10n.github.io/">
+<link rel="canonical" href="http://amb1t10n.github.io/2022/04/19/Detail-in-reproducing-VolSDF/">
 
 
 
-<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":true,"isPost":false,"lang":"en","comments":"","permalink":"","path":"index.html","title":""}</script>
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"en","comments":true,"permalink":"http://amb1t10n.github.io/2022/04/19/Detail-in-reproducing-VolSDF/","path":"2022/04/19/Detail-in-reproducing-VolSDF/","title":"Detail in reproducing VolSDF"}</script>
 
 <script class="next-config" data-name="calendar" type="application/json">""</script>
-<title>Xiyu Zhang's Blog</title>
+<title>Detail in reproducing VolSDF | Xiyu Zhang's Blog</title>
   
 
 
@@ -67,7 +77,7 @@
 
     <a href="/" class="brand" rel="start">
       <i class="logo-line"></i>
-      <h1 class="site-title">Xiyu Zhang's Blog</h1>
+      <p class="site-title">Xiyu Zhang's Blog</p>
       <i class="logo-line"></i>
     </a>
   </div>
@@ -99,7 +109,7 @@
 
   <aside class="sidebar">
 
-    <div class="sidebar-inner sidebar-overview-active">
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
       <ul class="sidebar-nav">
         <li class="sidebar-nav-toc">
           Table of Contents
@@ -112,6 +122,7 @@
       <div class="sidebar-panel-container">
         <!--noindex-->
         <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#volume-rendering"><span class="nav-number">1.</span> <span class="nav-text">Volume Rendering</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#signed-distence-function"><span class="nav-number">1.1.</span> <span class="nav-text">Signed Distence Function</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#density-sigma"><span class="nav-number">1.2.</span> <span class="nav-text">Density \(\sigma\)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#rendering-procedure"><span class="nav-number">1.3.</span> <span class="nav-text">Rendering Procedure</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#network-architecture"><span class="nav-number">2.</span> <span class="nav-text">Network Architecture</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#sampling-algorithm"><span class="nav-number">3.</span> <span class="nav-text">Sampling Algorithm</span></a></li></ol></div>
         </div>
         <!--/noindex-->
 
@@ -173,16 +184,17 @@
 </noscript>
 
 
-    <div class="main-inner index posts-expand">
+    <div class="main-inner post posts-expand">
 
-    
+
+  
 
 
 <div class="post-block">
   
   
 
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="en">
     <link itemprop="mainEntityOfPage" href="http://amb1t10n.github.io/2022/04/19/Detail-in-reproducing-VolSDF/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -196,13 +208,13 @@
     </span>
 
     <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content="undefined | Xiyu Zhang's Blog">
+      <meta itemprop="name" content="Detail in reproducing VolSDF | Xiyu Zhang's Blog">
       <meta itemprop="description" content="">
     </span>
       <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/2022/04/19/Detail-in-reproducing-VolSDF/" class="post-title-link" itemprop="url">Detail in reproducing VolSDF</a>
-        </h2>
+        <h1 class="post-title" itemprop="name headline">
+          Detail in reproducing VolSDF
+        </h1>
 
         <div class="post-meta-container">
           <div class="post-meta">
@@ -241,7 +253,7 @@
     
     
     <div class="post-body" itemprop="articleBody">
-          <h2 id="volume-rendering">Volume Rendering</h2>
+        <h2 id="volume-rendering">Volume Rendering</h2>
 <h3 id="signed-distence-function">Signed Distence Function</h3>
 <p><span class="math display">\[
 \mathbf{1}_{\Omega}(\boldsymbol{x})=\left\{\begin{array}{ll}
@@ -354,7 +366,6 @@ There're two networks and one is geometry network <span class="math inline">\(\b
 <hr />
 <h2 id="sampling-algorithm">Sampling Algorithm</h2>
 <link rel="stylesheet" href="/css/spoiler.css" type="text/css"><script src="/js/spoiler.js" type="text/javascript" async></script>
-      
     </div>
 
     
@@ -362,122 +373,22 @@ There're two networks and one is geometry network <span class="math inline">\(\b
     
 
     <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
 
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="http://amb1t10n.github.io/2022/04/03/Paper-Reading-NeRF-Nerual-Radience-Field/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="Xiyu Zhang">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Xiyu Zhang's Blog">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content="undefined | Xiyu Zhang's Blog">
-      <meta itemprop="description" content="">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/2022/04/03/Paper-Reading-NeRF-Nerual-Radience-Field/" class="post-title-link" itemprop="url">Paper Reading: NeRF(Nerual Radience Field)</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">Posted on</span>
-
-      <time title="Created: 2022-04-03 13:03:15" itemprop="dateCreated datePublished" datetime="2022-04-03T13:03:15+00:00">2022-04-03</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar-check"></i>
-      </span>
-      <span class="post-meta-item-text">Edited on</span>
-      <time title="Modified: 2022-04-19 08:46:37" itemprop="dateModified" datetime="2022-04-19T08:46:37+00:00">2022-04-19</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-folder"></i>
-      </span>
-      <span class="post-meta-item-text">In</span>
-        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/Paper-Reading/" itemprop="url" rel="index"><span itemprop="name">Paper Reading</span></a>
-        </span>
-    </span>
-
-  
-    <span class="post-meta-break"></span>
-    <span class="post-meta-item" title="Symbols count in article">
-      <span class="post-meta-item-icon">
-        <i class="far fa-file-word"></i>
-      </span>
-      <span class="post-meta-item-text">Symbols count in article: </span>
-      <span>3.9k</span>
-    </span>
-    <span class="post-meta-item" title="Reading time">
-      <span class="post-meta-item-icon">
-        <i class="far fa-clock"></i>
-      </span>
-      <span class="post-meta-item-text">Reading time &asymp;</span>
-      <span>4 mins.</span>
-    </span>
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <figure>
-<img src="https://blog-image-zxy.oss-cn-hangzhou.aliyuncs.com/2022-04-18-23-42-32_3eea9ec2.png" alt="NeRF" /><figcaption>NeRF</figcaption>
-</figure>
-<h2 id="introduction">Introduction</h2>
-<p>NeRF is to solve the problem of view sythesis by directly optimizing parameters of a continuous 5D function, and it uses neural network to represent scenes and store the information of a real model. The neural network has a 5D input, the spatial location <span class="math inline">\((x, y, z)\)</span> and viewing direction <span class="math inline">\((\theta, \phi)\)</span>, and outputs the volume density and the view-dependent emitted radiance at that spatial location. The volume density is only related with the spatial location, while radiance is also related with the viewing direction. It is because we can see different color from different view, like mirrors.</p>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2022/04/03/Paper-Reading-NeRF-Nerual-Radience-Field/#more" rel="contents">
-                Read more &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
         
-      
-    </div>
 
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2022/04/03/Paper-Reading-NeRF-Nerual-Radience-Field/" rel="prev" title="Paper Reading: NeRF(Nerual Radience Field)">
+                  <i class="fa fa-chevron-left"></i> Paper Reading: NeRF(Nerual Radience Field)
+                </a>
+            </div>
+            <div class="post-nav-item">
+            </div>
+          </div>
     </footer>
   </article>
 </div>
+
 
 
 
