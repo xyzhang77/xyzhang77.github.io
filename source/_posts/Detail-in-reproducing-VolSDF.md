@@ -167,6 +167,14 @@ from $S$ for each pixel $p$. $\lambda$ is a hyper-parameter and set 0.1 in exper
 Notice that, this loss mainly serve the training the geometry network and not for rendering. So we don't compute the gradient of the function in [Signed Distence Function](#signed-distence-function) , $d$ not $d_\Omega$
 
 
-
 --------------------------------------------
 ## Sampling Algorithm
+
+
+<center>
+<img src="https://blog-image-zxy.oss-cn-hangzhou.aliyuncs.com/2022-04-19-21-23-10_03bbed4c.png" width="50%"/><br>
+<div style="color:orange;solid #d9d9d9;
+    display: inline-block;
+    color: #999;
+    padding: 1px;"><b>Algorithm </b></div>
+</center>
