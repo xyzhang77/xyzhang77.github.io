@@ -176,5 +176,33 @@ Notice that, this loss mainly serve the training the geometry network and not fo
 <div style="color:orange;solid #d9d9d9;
     display: inline-block;
     color: #999;
-    padding: 1px;"><b>Algorithm </b></div>
+    padding: 1px;"><b>Sample Algorithm</b></div>
 </center>
+
+The figure above is the procedure of sampling.
+
+1. First, input 2 hyperparameters, one is error threshold $\epsilon$, one is a learnable parameter $\beta$
+2. Initialize $\mathcal{T}$ with unifromly sampling 128 points. We can implement by the function `torch.linspace`
+3. Initialize $\beta_+$ such that $B_{\mathcal{T},\beta_+}\le\epsilon$ using Lemma 2.
+
+    $$
+    B_{\mathcal{T}, \beta} \leq\left(\exp \left(\frac{\alpha}{4 \beta} \sum_{i=1}^{n-1} \delta_{i}^{2}\right)-1\right) \le \epsilon,\ \alpha = \frac{1}{\beta}\\
+    \beta \ge \sqrt{\frac{1}{4\log(1+\epsilon)}\sum_{i=1}^{n-1}\delta_i^2}
+    $$
+
+4. Sample $\mathcal{T}$, the number of points sampled from each interval is
+proportional to its current error bound $\hat{E}$.
+    $$
+    B_{\mathcal{T}, \beta} = \max _{k \in[n-1]}\left\{\exp \left(-\widehat{R}\left(t_{k}\right)\right)\left(\exp \left(\widehat{E}\left(t_{k+1}\right)\right)-1\right)\right\}\\
+    \widehat{R}(t)=\sum_{i=1}^{k-1} \delta_{i} \sigma_{i}+\left(t-t_{k}\right) \sigma_{k}\\
+    \widehat{E}(t)=\frac{\alpha}{4 \beta}\left(\sum_{i=1}^{k-1} \delta_{i}^{2} e^{-\frac{d_{i}^{\star}}{\beta}}+\left(t-t_{k}\right)^{2} e^{-\frac{d_{k}^{\star}}{\beta}}\right)\\
+    d_{i}^{\star}= \begin{cases}0 & \left|d_{i}\right|+\left|d_{i+1}\right| \leq \delta_{i} \\ \min \left\{\left|d_{i}\right|,\left|d_{i+1}\right|\right\} & \left.|| d_{i}\right|^{2}-\left|d_{i+1}\right|^{2} \mid \geq \delta_{i}^{2} \\ h_{i} & \text { otherwise }\end{cases}
+    $$
+
+5. If $B_{\mathcal{T},\beta_+} < \epsilon$, then find $\beta_\star$ by binary search 
+from $(\beta, \beta_+)$ such that $B_{\mathcal{T},\beta_+} = \epsilon$. The 
+max iteration is 5, and then update $\beta_+$.
+
+6. In the end, Estimate $\hat{O}$ using $\mathcal{T}$ and $\beta_+$
+
+The sampling method is based on inverse CDF sampling.
