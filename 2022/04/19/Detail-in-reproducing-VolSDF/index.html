@@ -33,7 +33,7 @@ sigma_approx_f5d5850c.png">
 <meta property="og:image" content="https://blog-image-zxy.oss-cn-hangzhou.aliyuncs.com/2022-04-19-15-39-53_421d799f.png">
 <meta property="og:image" content="https://blog-image-zxy.oss-cn-hangzhou.aliyuncs.com/2022-04-19-21-23-10_03bbed4c.png">
 <meta property="article:published_time" content="2022-04-19T11:38:39.000Z">
-<meta property="article:modified_time" content="2022-04-20T11:18:16.085Z">
+<meta property="article:modified_time" content="2022-04-21T03:35:41.274Z">
 <meta property="article:author" content="Xiyu Zhang">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="https://blog-image-zxy.oss-cn-hangzhou.aliyuncs.com/
@@ -231,7 +231,7 @@ sigma_approx_f5d5850c.png">
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">Edited on</span>
-      <time title="Modified: 2022-04-20 11:18:16" itemprop="dateModified" datetime="2022-04-20T11:18:16+00:00">2022-04-20</time>
+      <time title="Modified: 2022-04-21 03:35:41" itemprop="dateModified" datetime="2022-04-21T03:35:41+00:00">2022-04-21</time>
     </span>
 
   
@@ -241,7 +241,7 @@ sigma_approx_f5d5850c.png">
         <i class="far fa-file-word"></i>
       </span>
       <span class="post-meta-item-text">Symbols count in article: </span>
-      <span>6.7k</span>
+      <span>6.6k</span>
     </span>
     <span class="post-meta-item" title="Reading time">
       <span class="post-meta-item-icon">
@@ -387,15 +387,16 @@ There're two networks and one is geometry network <span class="math inline">\(\b
 <li>Initialize <span class="math inline">\(\mathcal{T}\)</span> with unifromly sampling 128 points. We can implement by the function <code>torch.linspace</code></li>
 <li><p>Initialize <span class="math inline">\(\beta_+\)</span> such that <span class="math inline">\(B_{\mathcal{T},\beta_+}\le\epsilon\)</span> using Lemma 2.</p>
 <p><span class="math display">\[
- B_{\mathcal{T}, \beta} \leq\left(\exp \left(\frac{\alpha}{4 \beta} \sum_{i=1}^{n-1} \delta_{i}^{2}\right)-1\right) \le \epsilon,\ \alpha = \frac{1}{\beta}\\
+ B_{\mathcal{T}, \beta} \leq\left(\exp \left(\frac{\alpha}{4 \beta} \sum_{i=1}^{n-1} \delta_{i}^{2}\right)-1\right) \le \epsilon,\ \alpha = \frac{1}{\beta}
+ \]</span> <span class="math display">\[
  \beta \ge \sqrt{\frac{1}{4\log(1+\epsilon)}\sum_{i=1}^{n-1}\delta_i^2}
  \]</span></p></li>
 <li><p>Sample <span class="math inline">\(\mathcal{T}\)</span>, the number of points sampled from each interval is proportional to its current error bound <span class="math inline">\(\hat{E}\)</span>. <span class="math display">\[
  B_{\mathcal{T}, \beta} = \max _{k \in[n-1]}\left\{\exp \left(-\widehat{R}\left(t_{k}\right)\right)\left(\exp \left(\widehat{E}\left(t_{k+1}\right)\right)-1\right)\right\}
  \]</span> <span class="math display">\[
- \widehat{R}(t)=\sum_{i=1}^{k-1} \delta_{i} \sigma_{i}+\left(t-t_{k}\right) \sigma_{k}
+ \widehat{R}(t_k)=\sum_{i=1}^{k-1} \delta_{i} \sigma_{i}
  \]</span> <span class="math display">\[
- \widehat{E}(t)=\frac{\alpha}{4 \beta}\left(\sum_{i=1}^{k-1} \delta_{i}^{2} e^{-\frac{d_{i}^{\star}}{\beta}}+\left(t-t_{k}\right)^{2} e^{-\frac{d_{k}^{\star}}{\beta}}\right)
+ \widehat{E}(t_{k+1})=\frac{\alpha}{4 \beta}\left(\sum_{i=1}^{k} \delta_{i}^{2} e^{-\frac{d_{i}^{\star}}{\beta}}\right)
  \]</span> <span class="math display">\[
  d_{i}^{\star}= \begin{cases}0 &amp; \left|d_{i}\right|+\left|d_{i+1}\right| \leq \delta_{i} \\ \min \left\{\left|d_{i}\right|,\left|d_{i+1}\right|\right\} &amp; \left.|| d_{i}\right|^{2}-\left|d_{i+1}\right|^{2} \mid \geq \delta_{i}^{2} \\ h_{i} &amp; \text { otherwise }\end{cases}
  \]</span></p></li>
@@ -452,7 +453,7 @@ There're two networks and one is geometry network <span class="math inline">\(\b
     <span class="post-meta-item-icon">
       <i class="fa fa-chart-line"></i>
     </span>
-    <span title="Symbols count total">11k</span>
+    <span title="Symbols count total">10k</span>
   </span>
   <span class="post-meta-item">
     <span class="post-meta-item-icon">
