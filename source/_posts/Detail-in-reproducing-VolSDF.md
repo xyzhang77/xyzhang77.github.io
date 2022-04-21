@@ -207,6 +207,9 @@ proportional to its current error bound $\hat{E}$.
     d_{i}^{\star}= \begin{cases}0 & \left|d_{i}\right|+\left|d_{i+1}\right| \leq \delta_{i} \\ \min \left\{\left|d_{i}\right|,\left|d_{i+1}\right|\right\} & \left.|| d_{i}\right|^{2}-\left|d_{i+1}\right|^{2} \mid \geq \delta_{i}^{2} \\ h_{i} & \text { otherwise }\end{cases}
     $$
 
+    One point we should notice is that $d_i, d_{i+1}$ must
+    be the same sign, which means the ray in the interval 
+    goes throught the boundary and the distence should be zero.
 5. If $B_{\mathcal{T},\beta_+} < \epsilon$, then find $\beta_\star$ by binary search 
 from $(\beta, \beta_+)$ such that $B_{\mathcal{T},\beta_+} = \epsilon$. The 
 max iteration is 5, and then update $\beta_+$.
