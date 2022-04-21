@@ -186,7 +186,9 @@ The figure above is the procedure of sampling.
 3. Initialize $\beta_+$ such that $B_{\mathcal{T},\beta_+}\le\epsilon$ using Lemma 2.
 
     $$
-    B_{\mathcal{T}, \beta} \leq\left(\exp \left(\frac{\alpha}{4 \beta} \sum_{i=1}^{n-1} \delta_{i}^{2}\right)-1\right) \le \epsilon,\ \alpha = \frac{1}{\beta}\\
+    B_{\mathcal{T}, \beta} \leq\left(\exp \left(\frac{\alpha}{4 \beta} \sum_{i=1}^{n-1} \delta_{i}^{2}\right)-1\right) \le \epsilon,\ \alpha = \frac{1}{\beta}
+    $$
+    $$
     \beta \ge \sqrt{\frac{1}{4\log(1+\epsilon)}\sum_{i=1}^{n-1}\delta_i^2}
     $$
 
@@ -196,10 +198,10 @@ proportional to its current error bound $\hat{E}$.
     B_{\mathcal{T}, \beta} = \max _{k \in[n-1]}\left\{\exp \left(-\widehat{R}\left(t_{k}\right)\right)\left(\exp \left(\widehat{E}\left(t_{k+1}\right)\right)-1\right)\right\}
     $$
     $$
-    \widehat{R}(t)=\sum_{i=1}^{k-1} \delta_{i} \sigma_{i}+\left(t-t_{k}\right) \sigma_{k}
+    \widehat{R}(t_k)=\sum_{i=1}^{k-1} \delta_{i} \sigma_{i}
     $$
     $$
-    \widehat{E}(t)=\frac{\alpha}{4 \beta}\left(\sum_{i=1}^{k-1} \delta_{i}^{2} e^{-\frac{d_{i}^{\star}}{\beta}}+\left(t-t_{k}\right)^{2} e^{-\frac{d_{k}^{\star}}{\beta}}\right)
+    \widehat{E}(t_{k+1})=\frac{\alpha}{4 \beta}\left(\sum_{i=1}^{k} \delta_{i}^{2} e^{-\frac{d_{i}^{\star}}{\beta}}\right)
     $$
     $$
     d_{i}^{\star}= \begin{cases}0 & \left|d_{i}\right|+\left|d_{i+1}\right| \leq \delta_{i} \\ \min \left\{\left|d_{i}\right|,\left|d_{i+1}\right|\right\} & \left.|| d_{i}\right|^{2}-\left|d_{i+1}\right|^{2} \mid \geq \delta_{i}^{2} \\ h_{i} & \text { otherwise }\end{cases}
