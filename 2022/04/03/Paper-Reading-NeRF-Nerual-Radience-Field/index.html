@@ -27,14 +27,14 @@
 <meta property="og:site_name" content="Xiyu Zhang&#39;s Blog">
 <meta property="og:description" content="NeRF  Introduction NeRF is to solve the problem of view sythesis by directly optimizing parameters of a continuous 5D function, and it uses neural network to represent scenes and store the informatio">
 <meta property="og:locale" content="en_US">
-<meta property="og:image" content="https://blog-image-zxy.oss-cn-hangzhou.aliyuncs.com/2022-04-18-23-42-32_3eea9ec2.png">
-<meta property="og:image" content="https://blog-image-zxy.oss-cn-hangzhou.aliyuncs.com/T_3d1944d4.png">
+<meta property="og:image" content="https://s2.loli.net/2022/05/05/CEr1ZX8dDmIak4P.png">
+<meta property="og:image" content="https://s2.loli.net/2022/05/05/IOzwu7M4gpK2PGH.png">
 <meta property="article:published_time" content="2022-04-03T13:03:15.000Z">
-<meta property="article:modified_time" content="2022-04-21T10:13:54.556Z">
+<meta property="article:modified_time" content="2022-05-05T10:11:25.911Z">
 <meta property="article:author" content="Xiyu Zhang">
 <meta property="article:tag" content="3D Representation implicitly">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://blog-image-zxy.oss-cn-hangzhou.aliyuncs.com/2022-04-18-23-42-32_3eea9ec2.png">
+<meta name="twitter:image" content="https://s2.loli.net/2022/05/05/CEr1ZX8dDmIak4P.png">
 
 
 <link rel="canonical" href="http://x1yu-zhang.github.io/2022/04/03/Paper-Reading-NeRF-Nerual-Radience-Field/">
@@ -228,7 +228,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">Edited on</span>
-      <time title="Modified: 2022-04-21 10:13:54" itemprop="dateModified" datetime="2022-04-21T10:13:54+00:00">2022-04-21</time>
+      <time title="Modified: 2022-05-05 10:11:25" itemprop="dateModified" datetime="2022-05-05T10:11:25+00:00">2022-05-05</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -266,7 +266,7 @@
     
     <div class="post-body" itemprop="articleBody">
         <figure>
-<img src="https://blog-image-zxy.oss-cn-hangzhou.aliyuncs.com/2022-04-18-23-42-32_3eea9ec2.png" alt="NeRF" /><figcaption>NeRF</figcaption>
+<img src="https://s2.loli.net/2022/05/05/CEr1ZX8dDmIak4P.png" alt="NeRF" /><figcaption>NeRF</figcaption>
 </figure>
 <h2 id="introduction">Introduction</h2>
 <p>NeRF is to solve the problem of view sythesis by directly optimizing parameters of a continuous 5D function, and it uses neural network to represent scenes and store the information of a real model. The neural network has a 5D input, the spatial location <span class="math inline">\((x, y, z)\)</span> and viewing direction <span class="math inline">\((\theta, \phi)\)</span>, and outputs the volume density and the view-dependent emitted radiance at that spatial location. The volume density is only related with the spatial location, while radiance is also related with the viewing direction. It is because we can see different color from different view, like mirrors.</p>
@@ -283,7 +283,7 @@ C({\bf{r}}) = \int_{t_n}^{t_f}  T(t)\sigma({\bf r}(t)){\bf c}({\bf r}(t),{\bf d}
 \]</span></p>
 <p>The function <span class="math inline">\(T(t)\)</span> denotes the accumulated transmittance along the ray from <span class="math inline">\(t_n\)</span> to <span class="math inline">\(t\)</span>, the probility taht the ray travels from <span class="math inline">\(t_n\)</span> to <span class="math inline">\(t\)</span> without hitting any other particle. If there's <span class="math inline">\(t\)</span> such that <span class="math inline">\(\sigma\)</span> is large, <span class="math inline">\(T\)</span> will drop drastically, which is as following.</p>
 <figure>
-<img src="https://blog-image-zxy.oss-cn-hangzhou.aliyuncs.com/T_3d1944d4.png" alt="The red line is T, the blue is sigma" /><figcaption>The red line is T, the blue is sigma</figcaption>
+<img src="https://s2.loli.net/2022/05/05/IOzwu7M4gpK2PGH.png" alt="The red line is T, the blue is sigma" /><figcaption>The red line is T, the blue is sigma</figcaption>
 </figure>
 <p>We need to estimate the above fucntion using a numerical method. And we sample the rays discretize the integral, and use left Riemann sum. So the integral can be represented as</p>
 <p><span class="math display">\[
