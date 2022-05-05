@@ -7,8 +7,8 @@ categories:
     - ['Paper Reading']
 ---
 
+![NeRF](https://s2.loli.net/2022/05/05/CEr1ZX8dDmIak4P.png)  
 
-![NeRF](https://blog-image-zxy.oss-cn-hangzhou.aliyuncs.com/2022-04-18-23-42-32_3eea9ec2.png)
 
 ## Introduction
 NeRF is to solve the problem of view sythesis by directly optimizing parameters of a continuous 5D function,
@@ -49,7 +49,7 @@ The function $T(t)$ denotes the accumulated transmittance along the ray from $t_
 $t_n$ to $t$ without hitting any other particle. If there's $t$ such that $\sigma$ is large, $T$ will drop drastically, which 
 is as following.
 
-![The red line is T, the blue is sigma](https://blog-image-zxy.oss-cn-hangzhou.aliyuncs.com/T_3d1944d4.png)
+![The red line is T, the blue is sigma](https://s2.loli.net/2022/05/05/IOzwu7M4gpK2PGH.png)  
 
 We need to estimate the above fucntion using a numerical method. And we sample the rays discretize the integral, and use left Riemann sum. So the integral can be represented as 
 

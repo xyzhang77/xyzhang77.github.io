@@ -89,8 +89,7 @@ $$
 when $\sigma_i\delta_i$ is very small, the loss can be omitted.
 
 <center>
-<img src="https://blog-image-zxy.oss-cn-hangzhou.aliyuncs.com/
-sigma_approx_f5d5850c.png" width="60%">
+<img src="https://s2.loli.net/2022/05/05/z7w91SXesqEYda4.png" width="60%">
 <br>
 <div style="color:orange;solid #d9d9d9;
     display: inline-block;
@@ -120,16 +119,19 @@ You will find they are very similar.
 
 ## Network Architecture
 
-There're two networks and one is geometry network $\boldsymbol{f}_\varphi$ with 8-layer, 256-width MLP and a single skip connection from the input to the 4th layer. 
+There're two networks and one is geometry network $\boldsymbol{f}_\varphi$ with 8-layer, 256-width MLP and a single skip connection from the input to the 4th layer.
+
 <center>
-<img src="https://blog-image-zxy.oss-cn-hangzhou.aliyuncs.com/2022-04-19-15-30-57_02aeb7c2.png"/><br>
+<img src="https://s2.loli.net/2022/05/05/reRpDIATF9s7SHg.png"/><br>
 <div style="color:orange;solid #d9d9d9;
     display: inline-block;
     color: #999;
     padding: 1px;"><b>The architecture of geometry network</b></div>
 </center>
+
 <center>
-<img src="https://blog-image-zxy.oss-cn-hangzhou.aliyuncs.com/2022-04-19-15-39-53_421d799f.png"/><br>
+<img src="https://s2.loli.net/2022/05/05/9AwgoT4OLczkS8B.png
+"/><br>
 <div style="color:orange;solid #d9d9d9;
     display: inline-block;
     color: #999;
@@ -172,7 +174,7 @@ Notice that, this loss mainly serve the training the geometry network and not fo
 
 
 <center>
-<img src="https://blog-image-zxy.oss-cn-hangzhou.aliyuncs.com/2022-04-19-21-23-10_03bbed4c.png" width="50%"/><br>
+<img src="https://s2.loli.net/2022/05/05/EgMXudqAB27bThn.png" width="50%"/><br>
 <div style="color:orange;solid #d9d9d9;
     display: inline-block;
     color: #999;
@@ -193,7 +195,7 @@ The figure above is the procedure of sampling.
     $$
 
 4. Sample $\mathcal{T}$, the number of points sampled from each interval is
-proportional to its current error bound $\hat{E}$.
+proportional to its current error bound $\hat{B}$.
     $$
     B_{\mathcal{T}, \beta} = \max _{k \in[n-1]}\left\{\exp \left(-\widehat{R}\left(t_{k}\right)\right)\left(\exp \left(\widehat{E}\left(t_{k+1}\right)\right)-1\right)\right\}
     $$
